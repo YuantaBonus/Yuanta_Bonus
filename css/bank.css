@@ -72,7 +72,7 @@ a.navbar-brand{
 
 .navbar-inverse .navbar-nav>li>a:hover{
 	color: white;
-	background-color: #fe94a0;
+	background-color: #fce6c2;
 }
 
 /* Navbar Login */
@@ -96,7 +96,7 @@ a.navbar-brand{
 
 #sign{
 	background-color: #ffd06f;
-	border-color: #fe6878;
+	border-color: #f6ae36;
 }
 
 /*會員資料*/
