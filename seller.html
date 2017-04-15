@@ -212,9 +212,6 @@
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 		  <ul class="nav navbar-nav navbar-right">
-		  	<li><a href="#member">個人</a></l>
-		  	<li><a href="#div_account">帳戶</a></li>
-        	<li><a href="#div_history">紀錄</a></li>
         	<li>
         		<a href="./shopping_example/details.html">
         			<i class="glyphicon glyphicon-shopping-cart"></i>
@@ -303,57 +300,24 @@
 	<div class="container">
 		<div class="row" id="div_account">
 			<h1>帳戶管理</h1>
-			<span class="btn-group pull-right">
-		      <button class="btn btn-sm btn-warning">新增帳戶</button>
-	      	</span>
+			
 	        <div class="table-responsive col-md-12">
 	            <table class="table table-hover" id = "account_table">
 	               <thead>
 	                    <tr>
-	                    	<th>#</th>
-	                        <th>帳戶號碼</th>
-	                        <th>帳戶名稱</th>
-	                        <th>擁有者姓名</th>
-	                        <th>剩餘點數</th>
-                        	<th>新增日期</th>
+	                    	<th></th>
+	                        <th>更新日期</th>
+	                        <th>目前持有元大幣</th>	                        
 	                        <th>動作</th>
 	                    </tr>
 	                </thead>
 	                <tbody>
 	                	<tr>
-                            <td>1</td>
-                            <td>0134285 0134589</td>
-                            <td>國泰銀行</td>
-                            <td>林書豪</td>
-                            <td><span class="label label-success">1717
-                            </span>
-                            <td>2016/4/1</td>
-                            <td cass="col-md-2">
-                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#account_modal" style="margin-right: 3px"onclick="set_account_modal(this)">交換點數</button>
-                                <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>0134589 0134285</td>
-                            <td>花旗銀行</td>
-                            <td>林書豪</td>
-                            <td><span class="label label-success">2525
-                            </span>
-                            <td>2016/5/1</td>
-                            <td cass="col-md-2">
-                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#account_modal" style="margin-right: 3px"onclick="set_account_modal(this)">交換點數</button>
-                                <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>0367821 0235641</td>
-                            <td>元大銀行</td>
-                            <td>林書豪</td>
-                            <td><span class="label label-success">3232
-                            </span>
-                            <td>2016/6/1</td>
+	                		<td></td>
+                            <td>20170421</td>	                	
+                            <td><span class="label label-success">683200
+                            	</span></td>
+
                             <td cass="col-md-2">
                                 <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#account_modal" style="margin-right: 3px"onclick="set_account_modal(this)">交換點數</button>
                                 <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
@@ -361,15 +325,6 @@
                         </tr>
 	                </tbody>
 	            </table>
-	        </div>
-	        <div class="pull-right col-md-3 col-md-offset-9">
-	            <ul class="pagination">
-	                <li><a href="#">«</a></li>
-	                <li class="active"><a href="#">1</a></li>
-	                <li><a href="#">2</a></li>
-	                <li><a href="#">3</a></li>
-	                <li><a href="#">»</a></li>
-	            </ul>
 	        </div>
 		</div>
 		<hr>
@@ -391,13 +346,7 @@
 		        	<div class="form-group">
 						<label for="bank" class="col-sm-3 control-label">帳戶號碼:</label>
 						<div class="col-sm-9">
-							<p id="from_bank_userid" class="p_form"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="bank" class="col-sm-3 control-label">轉出帳戶:</label>
-						<div class="col-sm-9">
-							<p id="from_bank" class="p_form"></p>
+							<p class="p_form">031524 498672</p>
 						</div>
 					</div>
 					<div class="form-group">
@@ -410,13 +359,11 @@
 						<label for="bank" class="col-sm-3 control-label">轉入帳戶:</label>
 						<div class="col-sm-9">
 							<select id="to_bank" class="form-control">
+								<option value="0"></option>
+								<option value="1">國泰銀行</option>
+								<option value="2">花旗銀行</option>
+								<option value="3">元大銀行</option>
 							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="number" class="col-sm-3 control-label">可得點數:</label>
-						<div class="col-sm-9">
-					    	<p id="get_amount" class="p_form">0點</p>
 						</div>
 					</div>
 					<div class="form-group">
