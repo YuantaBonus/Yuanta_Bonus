@@ -208,7 +208,7 @@ function seller_eventWatch(){
 
 	var event = myContractInstance.Exchange(
 				{
-					to: '0x13f42ecb9fbf94ff33cd22828070f2fa10048a27'
+					to: '0x4aaa9ba999f9f489d3ee2326906d6231759b24c4'
 				},
 				{
 					fromBlock: 3286,
@@ -232,6 +232,7 @@ function seller_eventWatch(){
 						var bank_yuanta_address='0xf58f04539ada143abec19204500d501160c44436';
 						var bank_citi_address='0x13f42ecb9fbf94ff33cd22828070f2fa10048a27';
 						var bank_cathay_address='0xb27dc07c2984d9643449e3f9f8feb63236fc2c98';
+						var seller_address = '0x4aaa9ba999f9f489d3ee2326906d6231759b24c4'
 
 						if (result[i].args.from === bank_yuanta_address) {
 							result[i].args.from = "元大銀行";
@@ -241,13 +242,7 @@ function seller_eventWatch(){
 							result[i].args.from = "國泰銀行";
 						}
 
-						if (result[i].args.to === bank_yuanta_address) {
-							result[i].args.to = "元大銀行";
-						}else if (result[i].args.to === bank_citi_address) {
-							result[i].args.to = "花旗銀行";
-						}else if (result[i].args.to === bank_cathay_address) {
-							result[i].args.to = "國泰銀行";
-						}
+						result[i].args.to = "Puma專賣店";
 
 						$("#recent_transaction").find('tbody')
 						    .append($('<tr>')
@@ -255,21 +250,21 @@ function seller_eventWatch(){
 						        	.text(i+1)
 						        )
 						        .append($('<td>')
-						        	.text(result[i].args.from)
+						        	.text('PUMA慢跑鞋')
 						        )
 						        .append($('<td>')
 						        	.append($('<span>')
 						                .attr('class', 'label label-warning')
-						                .text(result[i].args.from_bonus.c[0])
+						                .text(3999)
 						            )	
 						        )
 						        .append($('<td>')
-						        	.text(result[i].args.to)
+						        	.text(result[i].args.account)
 						        )
 						        .append($('<td>')
 						        	.append($('<span>')
 						                .attr('class', 'label label-success')
-						                .text(result[i].args.to_bonus.c[0])
+						                .text(result[i].args.value.c[0])
 						            )
 						        )
 						        .append($('<td>')
