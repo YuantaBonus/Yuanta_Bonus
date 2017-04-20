@@ -45,7 +45,7 @@
 
 	};
 
-	function sendTransaction(){		// 在銀行之間轉移元大幣
+	function send_coin_transaction(){		// 在銀行之間轉移元大幣
 	
 		$.LoadingOverlay("show");	// loading 動畫
 
@@ -106,7 +106,7 @@
 	</nav>
 	<!-- 導覽列結束 -->
 	
-	<!-- 會員資料 -->
+	<!-- 賣家資料 -->
 	<div class="container">
 		<div class="alert alert-danger">
 			  <strong>注意!</strong> 此網站無任何商業行為，純粹為學術研究，請勿當真。
@@ -165,12 +165,12 @@
 		</div>
 		<hr/>
 	</div>
-	<!-- 會員資料結束 -->
+	<!-- 賣家資料結束 -->
 	
-	<!-- 帳戶管理 -->
+	<!-- 元大幣帳戶管理 -->
 	<div class="container">
 		<div class="row" id="div_account">
-			<h1>帳戶管理</h1>
+			<h1>元大幣帳戶管理</h1>
 			
 	        <div class="table-responsive col-md-12">
 	            <table class="table table-hover" id = "account_table">
@@ -212,7 +212,7 @@
 	          <button type="button" class="close" data-dismiss="modal">&times;</button>
 	          <h4 class="modal-title">兌換元大幣</h4>
 	        </div>
-	        <form class="form-horizontal" method="post" id="exchange_form" name="exchange_form" action="javascript:sendTransaction();">
+	        <form class="form-horizontal" method="post" id="exchange_form" name="exchange_form" action="javascript:send_coin_transaction();">
 		        <div class="modal-body">
 		        	<div class="form-group">
 						<label for="bank" class="col-sm-3 control-label">錢包地址:</label>
@@ -245,7 +245,7 @@
 					</div>
 		        </div>
 		        <div class="modal-footer">
-		        	 <button type="submit" class="btn btn-primary" id="sign" onclick="sendTransaction()">確認兌換</button>
+		        	 <button type="submit" class="btn btn-primary" id="sign" onclick="send_coin_transaction()">確認兌換</button>
 		        </div>
 	        </form>
 	      </div>

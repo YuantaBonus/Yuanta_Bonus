@@ -42,8 +42,30 @@
 		bootbox.alert("此網站無任何商業行為，純粹為學術研究，請勿當真。");
 
 		bank_eventWatch();
-		
 	};
+
+
+	function send_coin_transaction(){		// 在銀行之間轉移元大幣
+	
+		$.LoadingOverlay("show");	// loading 動畫
+
+
+		bootbox.alert("兌換成功");	//瀏覽器 會 顯示 交易成功視窗
+
+
+		$('#account_modal').modal('hide');	//隱藏交換點數視窗
+		$.LoadingOverlay("hide");	//隱藏 loading 動畫
+	}
+
+	function coin_calculate(){  //計算手續費(0.5%)
+
+		var amount = document.getElementById("amount").value;
+
+		var fee = Math.round(amount * 0.005);
+
+		document.getElementById("fee").innerText = fee;
+	}
+
 
 </script>
 
@@ -94,7 +116,7 @@
 	</nav>
 	<!-- 導覽列結束 -->
 
-	<!-- 會員資料 -->
+	<!-- 銀行資料 -->
 	<div class="container">
 		<div class="alert alert-danger">
 		  <strong>注意!</strong> 此網站無任何商業行為，純粹為學術研究，請勿當真。
@@ -140,7 +162,95 @@
 		</div>
 		<hr/>
 	</div>
-	<!-- 會員資料結束 -->
+	<!-- 銀行資料結束 -->
+
+	<!-- 元大幣帳戶 -->
+	<div class="container">
+		<div class="row" id="div_account">
+			<h1>元大幣帳戶管理</h1>
+			
+	        <div class="table-responsive col-md-12">
+	            <table class="table table-hover" id = "account_table">
+	               <thead>
+	                    <tr>
+	                    	<th>#</th>
+	                    	<th>錢包地址</th>
+	                    	<th>目前持有元大幣</th>	 
+	                        <th>更新日期</th>
+	                        <th>動作</th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                	<tr>
+	                		<td>1</td>
+	                		<td>0x13f42ecb9fbf94ff33cd22828070f2fa10048a27</td>
+	                		<td><span class="label label-success">235600</span></td>
+                            <td>20150921</td>	                	
+                            <td cass="col-md-2">
+                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#coin_modal" style="margin-right: 3px"">兌換元大幣</button>
+                                <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
+                            </td>
+                        </tr>
+	                </tbody>
+	            </table>
+	        </div>
+		</div>
+		<hr>
+	</div>
+	<!-- 元大幣帳戶結束 -->
+
+	<!-- coin_popup -->	
+	<div class="container">
+	  <!-- Account Modal -->
+	  <div class="modal fade" id="coin_modal" role="dialog">
+	    <div class="modal-dialog">
+	      <!-- Modal content-->
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">兌換元大幣</h4>
+	        </div>
+	        <form class="form-horizontal" method="post" id="exchange_form" name="exchange_form" action="javascript:send_coin_transaction();">
+		        <div class="modal-body">
+		        	<div class="form-group">
+						<label for="bank" class="col-sm-3 control-label">錢包地址:</label>
+						<div class="col-sm-9">
+							<p class="p_form">0x13f42ecb9fbf94ff33cd22828070f2fa10048a27</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="number" class="col-sm-3 control-label">欲換點數:</label>
+						<div class="col-sm-9">
+					    	<input type="number" id="amount" placeholder="輸入點數" class="form-control" onkeyup="coin_calculate()" required="">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="bank" class="col-sm-3 control-label">轉入帳戶:</label>
+						<div class="col-sm-9">
+							<select id="to_bank" class="form-control">
+								<option value="1">元大銀行</option>
+								<option value="2">國泰銀行</option>
+								<option value="3">花旗銀行</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="number" class="col-sm-3 control-label">手續費:</label>
+						<div class="col-sm-9">
+					    	<p id="fee" class="p_form">0點</p>
+					    	<p class="p_form">至少收取1點</p>
+						</div>
+					</div>
+		        </div>
+		        <div class="modal-footer">
+		        	 <button type="submit" class="btn btn-primary" id="sign" onclick="send_coin_transaction()">確認兌換</button>
+		        </div>
+	        </form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- coin_popup 結束-->
 
 	<!-- 帳戶管理 -->
 	<div class="container">
