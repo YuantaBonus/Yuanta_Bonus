@@ -38,7 +38,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<script>
 		window.onload = function() {
 			// window.onload = 在網頁開啟、重整時 執行function
-			bootbox.alert("此網站無任何商業行為，純粹為學術研究，請勿當真。");
+			//bootbox.alert("此網站無任何商業行為，純粹為學術研究，請勿當真。");
 		}
 
 		function calculate_discount(){
@@ -49,33 +49,37 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			var bonus_provider = discount_form.bonus_provider.value;
 			var bonus_amount = document.getElementById("bonus_amount").value;
 
-			var yuanta_rate = 100;
+			var fee = bonus_amount*0.01;
+			document.getElementById('fee').innerText = fee + "點";
 
-			bonus_amount = bonus_amount/100;
+			var cathay_rate = 50;
 
-			document.getElementById("discount_amount").innerText = bonus_amount + "元";
+			discount_amount = bonus_amount/cathay_rate;
 
-			var total_amount = parseInt(document.getElementById("total_amount").innerText);
-			total_amount -= bonus_amount;
-			document.getElementById("final_amount").innerText =  total_amount + "元";
+			document.getElementById("discount_amount").innerText = "新台幣" + discount_amount + "元";
+
+			// var total_amount = parseInt(document.getElementById("total_amount").innerText);
+			var total_amount = 3999;
+			total_amount -= discount_amount;
+			document.getElementById("final_amount").innerText =  "新台幣" + total_amount + "元";
 		}
 
 		function sendTransaction(){		// 在銀行之間轉移元大幣
 	
 			$.LoadingOverlay("show");	// loading 動畫
 
-			var fromAddress = '0xf58F04539ADA143aBec19204500D501160c44436';	//由哪個銀行送出元大幣，暫時寫死
-			var from_Password = 'yuanta';
+			var fromAddress = '0xb27dc07c2984d9643449e3f9f8feb63236fc2c98';	//由哪個銀行送出元大幣，暫時寫死花旗
+			var from_Password = 'cathay';
 			
 			var from_bank_value = parseInt(document.getElementById("bonus_amount").value);
-			var from_bank_rate = 100;
+			var from_bank_rate = 50;
 
-			var from_bank_user_account = "0367821 0235641";
+			var from_bank_user_account = "0134589 0134285";
 
 			var to_address = "0x4AAA9bA999F9F489d3ee2326906D6231759b24c4";
 
 			var value = from_bank_value/from_bank_rate;
-			var fee = 0;
+			var fee = document.getElementById("bonus_amount").value*0.01;
 
 			date = current_date(); 	// date.js
 
@@ -99,7 +103,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					function(err, result) {	//callback 的 function
 						if (!err){
 							console.log("Transaction_Hash: " + result);
-							bootbox.alert("Transaction_Hash: " + result + "\n交易成功");	//瀏覽器 會 顯示 交易成功視窗
+							bootbox.alert("交易成功");	//瀏覽器 會 顯示 交易成功視窗
 						}
 						else {
 							console.log(err);
@@ -107,6 +111,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						}
 					}
 				);
+
+			// 更新資料庫
+			$.ajax( { 
+				type : 'POST',
+				data : {from_bank_user_account: from_bank_user_account,from_bank_value: from_bank_value, fee: fee},
+				url  : '../php/query/update_buyer_data.php',              // <=== CALL THE PHP FUNCTION HERE.
+				dataType: 'json',
+				success: function ( data ) {
+					console.log('update success');               // <=== VALUE RETURNED FROM FUNCTION.
+				},
+				error: function ( xhr ) {
+					console.log(xhr);
+				}
+			});
 
 			$('#buy_modal').modal('hide');	//隱藏交換點數視窗
 			$.LoadingOverlay("hide");	//隱藏 loading 動畫
@@ -133,21 +151,27 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	        	<li>
 	        		<a href=".././index.html">
 	        			<i class="glyphicon glyphicon-home"></i>
-	        				用戶端
+	        				首頁
 	        		</a>
-	        	</li>
-	        	<li>
-	        		<a href=".././seller.html">
-	        			<span class="glyphicon glyphicon-user"></span>
-	        				賣家端
-	        		</a>
-	        	</li>
+	        	</li> 
 	        	<li>
 	        		<a href="../bank.html">
 						<span class="glyphicon glyphicon-usd"></span>
-			        		銀行端
+			        		銀行
 					</a>
 				</li>
+				<li>
+					<a href="../client.php">
+						<span class="glyphicon glyphicon-log-in"></span> 
+							用戶
+					</a>
+				</li>
+				<li>
+	        		<a href=".././seller.html">
+	        			<span class="glyphicon glyphicon-user"></span>
+	        				賣家
+	        		</a>
+	        	</li>
 			  </ul>
 			</div>
 		  </div>
@@ -293,7 +317,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				        	<div class="form-group">
 								<label for="number" class="col-sm-4 control-label">總金額:</label>
 								<div class="col-sm-8">
-							    	<p id="total_amount" class="p_form">3999 元</p>
+							    	<p id="total_amount" class="p_form">新台幣3999 元</p>
 								</div>
 							</div>
 				        	<div class="form-group">
@@ -315,8 +339,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<label for="bank" class="col-sm-4 control-label">欲折抵之點數:</label>
 								<div class="col-sm-8">
 									<select id="bonus_provider" class="form-control">
-										<option value="1">元大銀行</option>
-										<option value="2" disabled>國泰銀行</option>
+										<option value="1">國泰銀行</option>
+										<option value="2" disabled>元大銀行</option>
 										<option value="3" disabled>花旗銀行</option>	
 									</select>
 								</div>
@@ -325,6 +349,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<label for="number" class="col-sm-4 control-label">欲折抵點數數目:</label>
 								<div class="col-sm-8">
 							    	<input type="number" id="bonus_amount" placeholder="輸入點數" class="form-control" onkeyup="calculate_discount()" required="">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="number" class="col-sm-3 control-label">手續費:</label>
+								<div class="col-sm-9">
+							    	<p id="fee" class="p_form">0</p>
 								</div>
 							</div>
 							<div class="form-group">

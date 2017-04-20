@@ -1,7 +1,7 @@
 <?php
 
-	$username = $_SESSION['login_user'];
-	$id = $_SESSION['id'];
+	$username = "林書豪";
+	$id = 2;
 
 	$connection = mysqli_connect("localhost", "root", "database");
 	mysqli_query($connection, "SET NAMES 'utf8'");
@@ -16,11 +16,11 @@
 
 	// account list
 	
-	$query = "SELECT yuanta.* FROM account INNER JOIN yuanta ON yuanta.account = account.user_id WHERE account.id=$id
+	$query = "SELECT yuanta.* FROM account INNER JOIN yuanta ON yuanta.user_id = account.user_id WHERE account.id=$id
 				UNION
-				SELECT cathay.* FROM account INNER JOIN cathay ON cathay.account = account.user_id WHERE account.id=$id
+				SELECT cathay.* FROM account INNER JOIN cathay ON cathay.user_id = account.user_id WHERE account.id=$id
 				UNION
-				SELECT citi.* FROM account INNER JOIN citi ON citi.account = account.user_id WHERE account.id=$id			
+				SELECT citi.* FROM account INNER JOIN citi ON citi.user_id = account.user_id WHERE account.id=$id			
 			";
 
 	$result = mysqli_query($connection, $query);
@@ -33,6 +33,7 @@
 		$rs[$i]['id'] = $temp['id'];
 		$rs[$i]['bank_id'] = $temp['bank_id'];
 		$rs[$i]['account'] = $temp['account'];
+		$rs[$i]['user_id'] = $temp['user_id'];
 		$rs[$i]['name'] = $temp['name'];
 		$rs[$i]['value'] = $temp['value'];
 		$rs[$i]['regist_time'] = $temp['regist_time'];

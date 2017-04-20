@@ -1,8 +1,3 @@
-<?php
-	session_start();
-	include('php/query/bank_data.php');
-?>
-
 <!doctype html>
 <html lang="en">
 
@@ -35,11 +30,23 @@
 	<link rel="shortcut icon" type="image/png" href="./images/logo.jpg"/>	<!-- 分頁上的 小icon -->
 </head>
 
+<?php
+	include('php/query/bank_data.php');
+?>
+
 <script>	
 	
 	window.onload = function(){
 
-		bootbox.alert("此網站無任何商業行為，純粹為學術研究，請勿當真。");
+		//bootbox.alert("此網站無任何商業行為，純粹為學術研究，請勿當真。");
+
+		document.getElementById('top_yuanta_coin_balance').innerText = myContractInstance.balanceOf('0x13f42ecb9fbf94ff33cd22828070f2fa10048a27').c[0];
+
+		document.getElementById('yuanta_coin_balance').innerText = myContractInstance.balanceOf('0x13f42ecb9fbf94ff33cd22828070f2fa10048a27').c[0];
+
+		var total_value = <?php echo $total_value;?>;
+		document.getElementById('bonus_total_value').innerText = 
+		total_value;
 
 		bank_eventWatch();
 	};
@@ -87,27 +94,27 @@
 		  	<!-- <li><a href="#intro">簡介</a></li>
         	<li><a href="#bonus">紅利</a></li> -->
         	<li>
+        		<a href="./index.html">
+		        	<i class="glyphicon glyphicon-home"></i>
+		        		首頁
+		        </a>
+		    </li>
+        	<li>
         		<a href="./shopping_example/details.html">
         			<i class="glyphicon glyphicon-shopping-cart"></i>
         				購物
         		</a>
         	</li>
-        	<li>
-        		<a href="./index.html">
-		        	<i class="glyphicon glyphicon-home"></i>
-		        		用戶端
-		        </a>
-		    </li>
-        	<li>
+        	<!-- <li>
 				<a href="php/account/regist.php">
 					<span class="glyphicon glyphicon-user"></span>
 						註冊
 				</a>
-			</li>
+			</li> -->
 			<li>
-				<a href="./client.html">
+				<a href="./client.php">
 					<span class="glyphicon glyphicon-log-in"></span> 
-						登入
+						用戶
 				</a>
 			</li>
 		  </ul>
@@ -148,11 +155,11 @@
                       </tr>
                       <tr>
                         <td>花旗點數總額:</td>
-                        <td>2134242</td>
+                        <td  id="bonus_total_value">0</td>
                       </tr>
                       <tr>
                         <td>元大幣餘額:</td>
-                        <td>34223</td>
+                        <td id="top_yuanta_coin_balance">0</td>
                       </tr>
                     </tbody>
                   </table>
@@ -176,7 +183,7 @@
 	                    	<th>#</th>
 	                    	<th>錢包地址</th>
 	                    	<th>目前持有元大幣</th>	 
-	                        <th>更新日期</th>
+	                        <!-- <th>更新日期</th> -->
 	                        <th>動作</th>
 	                    </tr>
 	                </thead>
@@ -184,8 +191,8 @@
 	                	<tr>
 	                		<td>1</td>
 	                		<td>0x13f42ecb9fbf94ff33cd22828070f2fa10048a27</td>
-	                		<td><span class="label label-success">235600</span></td>
-                            <td>20150921</td>	                	
+	                		<td><span class="label label-success" id="yuanta_coin_balance">0</span></td>
+                            <!-- <td>2017-4-21</td>	  -->               	
                             <td cass="col-md-2">
                                 <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#coin_modal" style="margin-right: 3px"">兌換元大幣</button>
                                 <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
@@ -252,10 +259,10 @@
 	</div>
 	<!-- coin_popup 結束-->
 
-	<!-- 帳戶管理 -->
+	<!-- 客戶帳戶管理 -->
 	<div class="container">
 		<div class="row" id="div_account">
-			<h1 style="margin-left: 10px">帳戶管理</h1>
+			<h1 style="margin-left: 10px">客戶帳戶管理</h1>
 	        <div class="table-responsive col-md-12">
 	            <table class="table table-hover">
 	               <thead>
@@ -269,50 +276,9 @@
 	                    </tr>
 	                </thead>
 	                <tbody>
-	                    <tr>
-                            <td>1</td>
-                            <td>0134285 0268589</td>
-                            <td>林書豪</td>
-                            <td><span class="label label-success">2626</span>
-                            <td>2014/4/1</td>
-                            <td cass="col-md-2">
-                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#account_modal" style="margin-right: 3px"onclick="">詳細資料</button>
-                                <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>0134285 0187089</td>
-                            <td>周杰倫</td>
-                            <td><span class="label label-success">1818</span>
-                            <td>2014/5/1</td>
-                            <td cass="col-md-2">
-                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#account_modal" style="margin-right: 3px"onclick="">詳細資料</button>
-                                <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>0134285 0127789</td>
-                            <td>金城武</td>
-                            <td><span class="label label-success">2020</span>
-                            <td>2014/6/1</td>
-                            <td cass="col-md-2">
-                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#account_modal" style="margin-right: 3px"onclick="">詳細資料</button>
-                                <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>0134285 0134589</td>
-                            <td>蔡英文</td>
-                            <td><span class="label label-success">3333</span>
-                            <td>2014/7/1</td>
-                            <td cass="col-md-2">
-                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#account_modal" style="margin-right: 3px"onclick="">詳細資料</button>
-                                <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
-                            </td>
-                        </tr>
+                        <?php 
+	                		include('php/part/bank/bank_account.php');
+	                	 ?>
 	                </tbody>
 	            </table>
 	        </div>
@@ -328,13 +294,51 @@
 		</div>
 		<hr>
 	</div>
+	<!-- 客戶帳戶管理結束 -->
 
-	<!-- 最近交易 -->
-	<div class="container" id="div_history">
-		<div class="row">
-			<h1 style="margin-left: 10px">最近交易</h1>
+	<!-- 最近交易_轉出 -->
+	<div class="container" >
+		<div class="row" id="div_history_out">
+			<h1 style="margin-left: 10px">最近交易_轉出</h1>
 	        <div class="table-responsive col-md-12">
-	            <table class="table table-hover" id="recent_transaction">
+	            <table class="table table-hover" id="recent_transaction_out">
+	            	<thead>
+	                    <tr>
+	                    	<th>#</th>
+	                        <th>轉出帳戶</th>
+	                        <th>花費點數</th>
+	                        <th>轉入帳戶</th>
+                        	<th>獲得點數</th>
+                        	<th>手續費</th>
+	                        <th>交易日期</th>
+	                        <th>動作</th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+    
+	                </tbody>
+	            </table>
+	        </div>
+	        <div class="pull-right col-md-3 col-md-offset-9">
+	            <ul class="pagination">
+	                <li><a href="#">«</a></li>
+	                <li class="active"><a href="#">1</a></li>
+	                <li><a href="#">2</a></li>
+	                <li><a href="#">3</a></li>
+	                <li><a href="#">»</a></li>
+	            </ul>
+	        </div>
+		</div>
+		<hr>
+	</div>
+	<!-- 最近交易_轉出結束 -->
+
+	<!-- 最近交易_轉入 -->
+	<div class="container">
+		<div class="row" id="div_history_in">
+			<h1 style="margin-left: 10px">最近交易_轉入</h1>
+	        <div class="table-responsive col-md-12">
+	            <table class="table table-hover" id="recent_transaction_in">
 	            	<thead>
 	                    <tr>
 	                    	<th>#</th>
@@ -363,85 +367,14 @@
 	        </div>
 		</div>
 	</div>
-	<!-- 最近交易結束 -->
+	<!-- 最近交易_轉入結束 -->
 
 	<!-- 合作銀行列表開始 -->
-		<div id="coop" class="container">
-			<div class="row">
-				<div class="col-xs-12">
-					<h3 class="text-center"><b>合作銀行</b></h3>
-					<hr />
-				</div>
-			</div>
-			<div id="coop-bank" class="row">
-				<div class="col-xs-6 col-sm-2">
-					<div class="thumbnail text-center">
-						<img alt="" src="images/yuanta_logo.png" />
-						<div class="caption">
-							<h3 class="h4">元大銀行</h3>						
-							<p><a href="https://ebank.yuantabank.com.tw/ib/" class="btn btn-primary btn-lg" role="button">進入網站</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-sm-2">
-					<div class="thumbnail text-center">
-						<img alt="" src="images/cathay_logo.png"/>
-						<div class="caption">
-							<h3 class="h4">國泰世華銀行</h3>						
-							<p><a href="https://www.mybank.com.tw/mybank" class="btn btn-primary btn-lg" role="button">進入網站</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-sm-2">
-					<div class="thumbnail text-center">
-						<img alt="" src="images/citi_logo.png" />
-						<div class="caption">
-							<h3 class="h4">花旗銀行</h3>						
-							<p><a href="https://www.citibank.com.tw/" class="btn btn-primary btn-lg" role="button">進入網站</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-sm-2">
-					<div class="thumbnail text-center">
-						<img alt="" src="images/yuanta_logo.png" />
-						<div class="caption">
-							<h3 class="h4">元大銀行</h3>						
-							<p><a href="https://ebank.yuantabank.com.tw/ib/" class="btn btn-primary btn-lg" role="button">進入網站</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-sm-2">
-					<div class="thumbnail text-center">
-						<img alt="" src="images/cathay_logo.png"/>
-						<div class="caption">
-							<h3 class="h4">國泰世華銀行</h3>						
-							<p><a href="https://www.mybank.com.tw/mybank" class="btn btn-primary btn-lg" role="button">進入網站</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-sm-2">
-					<div class="thumbnail text-center">
-						<img alt="" src="images/citi_logo.png" />
-						<div class="caption">
-							<h3 class="h4">花旗銀行</h3>						
-							<p><a href="https://www.citibank.com.tw/" class="btn btn-primary btn-lg" role="button">進入網站</a></p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<?php include('php/part/cooperate_banklist.php'); ?>
 	<!-- 合作銀行列表結束 -->
 
 	<!-- 頁尾  -->
-		<footer id="footer" class="container-fluid text-center">
-			<hr/>
-			<a href="#myPage" title="To Top">
-				<span class="glyphicon glyphicon-chevron-up"></span>
-				<div>
-					<label for="To Top">To Top</label>
-				</div>
-			</a>
-		</footer>	
+		<?php include('php/part/footer.php'); ?>	
 	<!-- 頁尾結束  -->
 
 </body>

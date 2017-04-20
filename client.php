@@ -36,11 +36,15 @@
 	<link rel="shortcut icon" type="image/png" href="./images/logo.jpg"/>	
 </head>
 
+<?php
+	include('php/query/client_data.php');
+?>
+
 <script>	
 
 	window.onload = function(){
 
-		bootbox.alert("此網站無任何商業行為，純粹為學術研究，請勿當真。");
+		//bootbox.alert("此網站無任何商業行為，純粹為學術研究，請勿當真。");
 
 		client_eventWatch();
 		
@@ -50,8 +54,8 @@
 	
 		$.LoadingOverlay("show");	// loading 動畫
 
-		var fromAddress = '0xf58F04539ADA143aBec19204500D501160c44436';	//由哪個銀行送出元大幣，暫時寫死
-		var from_Password = 'yuanta';
+		var fromAddress = '0x13f42EcB9fBF94Ff33cD22828070F2FA10048a27';	//由哪個銀行送出元大幣，暫時寫死國泰
+		var from_Password = 'citi';
 		
 		var from_bank_value = parseInt(document.getElementById("amount").value);
 		var from_bank_rate = 0;
@@ -73,7 +77,7 @@
 
 		var bank_yuanta_rate=100;
 		var bank_citi_rate=200;
-		var bank_cathay_rate=90;
+		var bank_cathay_rate=50;
 
 		if (to_bank=="元大銀行") {
 			to_bank_address = bank_yuanta_address;
@@ -83,7 +87,7 @@
 			to_bank_address = bank_cathay_address;
 		}
 
-		from_bank_rate = bank_yuanta_rate;
+		from_bank_rate = bank_citi_rate;
 
 		var value = Math.round(from_bank_value/from_bank_rate);
 
@@ -107,7 +111,7 @@
 				function(err, result) {	//callback 的 function
 					if (!err){
 						console.log("Transaction_Hash: " + result);
-						bootbox.alert("Transaction_Hash: " + result);	//瀏覽器 會 顯示 交易成功視窗
+						bootbox.alert("交易成功!");	//瀏覽器 會 顯示 交易成功視窗
 					}
 					else {
 						console.log(err);
@@ -115,6 +119,20 @@
 					}
 				}
 			);
+
+		// 更新資料庫
+			$.ajax( { 
+				type : 'POST',
+				data : {from_bank_user_account: from_bank_user_account,from_bank_value: from_bank_value,to_bank_address: to_bank_address,to_bank_value: to_bank_value, fee: fee},
+				url  : 'php/query/update_client_data.php',              // <=== CALL THE PHP FUNCTION HERE.
+				dataType: 'json',
+				success: function ( data ) {
+					console.log('update success');               // <=== VALUE RETURNED FROM FUNCTION.
+				},
+				error: function ( xhr ) {
+					console.log(xhr);
+				}
+			});	
 
 		$('#account_modal').modal('hide');	//隱藏交換點數視窗
 		$.LoadingOverlay("hide");	//隱藏 loading 動畫
@@ -136,7 +154,7 @@
 				//console.log(data['cathay']);               // <=== VALUE RETURNED FROM FUNCTION.
 				rate = data;
 
-				var get_amount = Math.round(value*rate[from_bank]['rate']/rate[to_bank]['rate']);
+				var get_amount = Math.round(value/rate[from_bank]['rate']*rate[to_bank]['rate']);
 				var fee = value*0.005;
 				if(fee<1)
 					fee = 1;
@@ -181,14 +199,14 @@
 
    		// set select'option
 		var row_length = document.getElementById("account_table").rows.length;
-		var count = 0;	//排除選自己的狀況
-		for (i = 1; i < row_length; i++) { 
+		var temp = 0;	//排除選自己的狀況
+		for (i = row_length-1; i >0; i--) { 
 		    var option_text = table.rows[i].cells[2].innerHTML;
 		    if (account_name == option_text) {
-		    	count = 1;
+		    	temp = 1;
 		    	continue;
-		    }
-		    modal_select.options[i-1-count] = new Option(option_text, option_text);
+		    }else
+		    	modal_select.options[i-1+temp] = new Option(option_text, option_text);
 		}
 	}
 	
@@ -212,13 +230,19 @@
 		  	<li><a href="#div_account">帳戶</a></li>
         	<li><a href="#div_history">紀錄</a></li>
         	<li>
+	        		<a href="./index.html">
+	        			<i class="glyphicon glyphicon-home"></i>
+	        				首頁
+	        		</a>
+	        	</li> 
+        	<li>
         		<a href="./shopping_example/details.html">
         			<i class="glyphicon glyphicon-shopping-cart"></i>
         				購物
         		</a>
         	</li>
         	<li>
-        		<a href="./bank.html">
+        		<a href="./bank.php">
 					<span class="glyphicon glyphicon-usd"></span>
 		        		銀行
 				</a>
@@ -250,34 +274,42 @@
                     <tbody>
    		 			  <tr>
                         <td>姓名:</td>
-                        <td>林書豪</td>
+                        <td><?php echo $user_data['name'] ?></td>
                       </tr>
                       <tr>
                         <td>帳號:</td>
-                        <td>jeremylin</td>
+                        <td><?php echo $user_data['username'] ?></td>
                       </tr>
                       <tr>
                         <td>密碼:</td>
                         <td>
-                        	p******d
+                        	<?php 
+                        		$length = strlen($user_data['password']);
+                        		for ($i=0; $i < $length ; $i++) { 
+                        			if($i == 0 || $i == $length-1 ){
+                        				echo $user_data['password'][$i];
+                        			}else
+                        				echo '*';
+                        		} 
+                        	?> 	
                         </td>
                       </tr>
                       <tr>
                         <td>性別:</td>
-                        <td>男</td>
+                        <td><?php echo $user_data['gender'] ?></td>
                       </tr>
                       <tr>
                         <td>身分證字號:</td>
-                        <td>G123456789</td>
+                        <td><?php echo $user_data['user_id'] ?></td>
                       </tr>
                       <tr>
                         <td>註冊時間:</td>
-                        <td>2016/4/1</td>
+                        <td><?php echo $user_data['regist_time'] ?></td>
                       </tr>
                       
                       <tr>
                         <td>Email:</td>
-                        <td><a href="mailto:jeremylin@gmail.com">jeremylin@gmail.com</a></td>
+                        <td><a href="mailto:<?php echo $user_data['email'] ?>"><?php echo $user_data['email'] ?></a></td>
                       </tr>
                     </tbody>
                   </table>
@@ -310,42 +342,9 @@
 	                    </tr>
 	                </thead>
 	                <tbody>
-	                	<tr>
-                            <td>1</td>
-                            <td>0134285 0134589</td>
-                            <td>國泰銀行</td>
-                            <td>林書豪</td>
-                            <td><span class="label label-success">1717</span>
-                            <td>2016/4/1</td>
-                            <td cass="col-md-2">
-                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#account_modal" style="margin-right: 3px"onclick="set_account_modal(this)">交換點數</button>
-                                <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>0134589 0134285</td>
-                            <td>花旗銀行</td>
-                            <td>林書豪</td>
-                            <td><span class="label label-success">2525</span>
-                            <td>2016/5/1</td>
-                            <td cass="col-md-2">
-                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#account_modal" style="margin-right: 3px"onclick="set_account_modal(this)">交換點數</button>
-                                <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>0367821 0235641</td>
-                            <td>元大銀行</td>
-                            <td>林書豪</td>
-                            <td><span class="label label-success">3232</span>
-                            <td>2016/6/1</td>
-                            <td cass="col-md-2">
-                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#account_modal" style="margin-right: 3px"onclick="set_account_modal(this)">交換點數</button>
-                                <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
-                            </td>
-                        </tr>
+                        <?php 
+	                		include('php/part/client/client_account.php');
+	                	 ?>
 	                </tbody>
 	            </table>
 	        </div>
@@ -463,82 +462,11 @@
 	<!-- 最近交易結束 -->
 
 	<!-- 合作銀行列表開始 -->
-		<div id="coop" class="container">
-			<div class="row">
-				<div class="col-xs-12">
-					<h3 class="text-center"><b>合作銀行</b></h3>
-					<hr />
-				</div>
-			</div>
-			<div id="coop-bank" class="row">
-				<div class="col-xs-6 col-sm-2">
-					<div class="thumbnail text-center">
-						<img alt="" src="images/yuanta_logo.png" />
-						<div class="caption">
-							<h3 class="h4">元大銀行</h3>						
-							<p><a href="https://ebank.yuantabank.com.tw/ib/" class="btn btn-primary btn-lg" role="button">進入網站</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-sm-2">
-					<div class="thumbnail text-center">
-						<img alt="" src="images/cathay_logo.png"/>
-						<div class="caption">
-							<h3 class="h4">國泰世華銀行</h3>						
-							<p><a href="https://www.mybank.com.tw/mybank" class="btn btn-primary btn-lg" role="button">進入網站</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-sm-2">
-					<div class="thumbnail text-center">
-						<img alt="" src="images/citi_logo.png" />
-						<div class="caption">
-							<h3 class="h4">花旗銀行</h3>						
-							<p><a href="https://www.citibank.com.tw/" class="btn btn-primary btn-lg" role="button">進入網站</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-sm-2">
-					<div class="thumbnail text-center">
-						<img alt="" src="images/yuanta_logo.png" />
-						<div class="caption">
-							<h3 class="h4">元大銀行</h3>						
-							<p><a href="https://ebank.yuantabank.com.tw/ib/" class="btn btn-primary btn-lg" role="button">進入網站</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-sm-2">
-					<div class="thumbnail text-center">
-						<img alt="" src="images/cathay_logo.png"/>
-						<div class="caption">
-							<h3 class="h4">國泰世華銀行</h3>						
-							<p><a href="https://www.mybank.com.tw/mybank" class="btn btn-primary btn-lg" role="button">進入網站</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-sm-2">
-					<div class="thumbnail text-center">
-						<img alt="" src="images/citi_logo.png" />
-						<div class="caption">
-							<h3 class="h4">花旗銀行</h3>						
-							<p><a href="https://www.citibank.com.tw/" class="btn btn-primary btn-lg" role="button">進入網站</a></p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<?php include('php/part/cooperate_banklist.php'); ?>
 	<!-- 合作銀行列表結束 -->
 
 	<!-- 頁尾  -->
-		<footer id="footer" class="container-fluid text-center">
-			<hr/>
-			<a href="#myPage" title="To Top">
-				<span class="glyphicon glyphicon-chevron-up"></span>
-				<div>
-					<label for="To Top">To Top</label>
-				</div>
-			</a>
-		</footer>	
+		<?php include('php/part/footer.php'); ?>	
 	<!-- 頁尾結束  -->
 
 </body>

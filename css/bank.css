@@ -112,7 +112,11 @@ a.navbar-brand{
 }
 
 /*最近交易*/
-#div_history{
+#div_history_out{
+	background-color: rgba(255, 255, 255, 0.4);
+	box-shadow: rgba(0,0,0,0.8) 3px 3px 10px 0;
+}
+#div_history_in{
 	background-color: rgba(255, 255, 255, 0.4);
 	box-shadow: rgba(0,0,0,0.8) 3px 3px 10px 0;
 }

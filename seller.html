@@ -39,9 +39,13 @@
 	var temp;
 	window.onload = function(){
 
-		bootbox.alert("此網站無任何商業行為，純粹為學術研究，請勿當真。");
+		//bootbox.alert("此網站無任何商業行為，純粹為學術研究，請勿當真。");
 
 		seller_eventWatch();
+
+		document.getElementById('top_yuanta_coin_balance').innerText = myContractInstance.balanceOf('0x4AAA9bA999F9F489d3ee2326906D6231759b24c4').c[0];
+
+		document.getElementById('yuanta_coin_balance').innerText = myContractInstance.balanceOf('0x4AAA9bA999F9F489d3ee2326906D6231759b24c4').c[0];
 
 	};
 
@@ -83,6 +87,12 @@
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 		  <ul class="nav navbar-nav navbar-right">
+		  	<li>
+        		<a href=".././index.html">
+        			<i class="glyphicon glyphicon-home"></i>
+        				首頁
+        		</a>
+        	</li> 
         	<li>
         		<a href="./shopping_example/details.html">
         			<i class="glyphicon glyphicon-shopping-cart"></i>
@@ -90,14 +100,14 @@
         		</a>
         	</li>
         	<li>
-        		<a href="./bank.html">
+        		<a href="./bank.php">
 					<span class="glyphicon glyphicon-usd"></span>
 		        		銀行
 				</a>
 			</li>
 			<li>
 				<a href="./index.html"><span class="glyphicon glyphicon-log-out"></span> 
-					登出					
+					用戶					
 				</a>
 			</li>
 		  </ul>
@@ -136,8 +146,8 @@
                       </tr>
                       <tr>
                         <td>持有元大幣:</td>
-                        <td>
-                        	683200
+                        <td id="top_yuanta_coin_balance">
+                        	0
                         </td>
                       </tr>
                       <tr>
@@ -179,7 +189,7 @@
 	                    	<th>#</th>
 	                    	<th>錢包地址</th>
 	                    	<th>目前持有元大幣</th>	 
-	                        <th>更新日期</th>
+	                        <!-- <th>更新日期</th> -->
 	                        <th>動作</th>
 	                    </tr>
 	                </thead>
@@ -187,8 +197,8 @@
 	                	<tr>
 	                		<td>1</td>
 	                		<td>0x4AAA9bA999F9F489d3ee2326906D6231759b24c4</td>
-	                		<td><span class="label label-success">683200</span></td>
-                            <td>20170421</td>	                	
+	                		<td><span class="label label-success" id="yuanta_coin_balance" >0</span></td>
+                            <!-- <td>20170421</td>	 -->                	
                             <td cass="col-md-2">
                                 <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#account_modal" style="margin-right: 3px"">兌換元大幣</button>
                                 <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
