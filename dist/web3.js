@@ -1796,7 +1796,7 @@ module.exports = {
     ETH_SIGNATURE_LENGTH: 4,
     ETH_UNITS: ETH_UNITS,
     ETH_BIGNUMBER_ROUNDING_MODE: { ROUNDING_MODE: BigNumber.ROUND_DOWN },
-    ETH_POLLING_TIMEOUT: 1000/2,
+    ETH_POLLING_TIMEOUT: 2000,
     defaultBlock: 'latest',
     defaultAccount: undefined
 };
