@@ -118,7 +118,9 @@ a.navbar-brand{
 canvas {
   width: 100%;
   height: auto;
-  margin: 5px;
+  margin-bottom: 10px;
+  padding: 5px;
+  background-color: white;
 }
 
 /*帳戶管理*/

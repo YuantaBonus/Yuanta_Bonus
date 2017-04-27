@@ -19,7 +19,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	<!-- 套用 Ethereum 相關 api -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/4.0.0/bignumber.min.js"></script>
-	<!-- <script type="text/javascript" src="./dist/web3.js"></script> -->
+	<script type="text/javascript" src="./dist/web3.js"></script>
 	
 	<!-- my contract -->
 	<script src="js/contract.js"></script>
@@ -40,6 +40,7 @@
 
 <?php
 	include('php/query/client_data.php');
+	include('php/part/client/client_chart.php');
 ?>
 
 <script>	
@@ -367,6 +368,7 @@
 
 		<!-- drwa chart -->
 		<script src="js/client_chart.js"></script>
+
 
 		<hr>
 	</div>
