@@ -19,7 +19,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	<!-- 套用 Ethereum 相關 api -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/4.0.0/bignumber.min.js"></script>
-	<script type="text/javascript" src="./dist/web3.js"></script>
+	<!-- <script type="text/javascript" src="./dist/web3.js"></script> -->
 	
 	<!-- my contract -->
 	<script src="js/contract.js"></script>
@@ -31,6 +31,8 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 	<!-- loading overlay -->
 	<script src="js/loadingoverlay.min.js"></script>
+	<!-- Chart.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
 	<!-- 分頁上的 小icon -->
 	<link rel="shortcut icon" type="image/png" href="./images/logo.jpg"/>	
@@ -265,11 +267,11 @@
 		</div>
 		<div class="jumbotron" id="member">
 			<div class="row">
-				<div class="col-sm-4 col-sm-offset-1">
+				<div class="col-sm-2">
 					<img src="images/default_userimg.png" alt="..." class="img-thumbnail center-block">
 					<button type="submit" id="sign" class="btn btn-primary btn-md center-block" style="margin-top: 10px">更換大頭貼</button>
 				</div>
-				<div class="col-sm-6 col-sm-offset-1">
+				<div class="col-sm-5">
 			  		<table class="table table-user-information">
                     <tbody>
    		 			  <tr>
@@ -315,11 +317,60 @@
                   </table>
                   <button type="submit" id="sign" class="btn btn-primary btn-md center-block" style="margin-top: 10px">編輯資料</button>
 			  	</div>
+			  	<div class="col-sm-5">
+			  		<!-- 表格 -->
+					<h3 style="text-align: center"><b>紅利點數對照表</b></h3>
+					<table class="table table-striped" style="text-align: center">
+						<tr>
+							<td>　　</td>
+							<td>紅利點數</td>
+							<td>元大幣</td>
+						</tr>
+						<tr>
+							<td>國泰</td>
+							<td>50</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>元大</td>
+							<td>100</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>花旗</td>
+							<td>200</td>
+							<td>1</td>
+						</tr>
+					</table>
+			  	</div>
 			</div>
 		</div>
 		<hr/>
 	</div>
 	<!-- 會員資料結束 -->
+
+	<!-- 圖表分析 -->
+	<div class="container">
+		<div class="row" id="div_chart">
+			<h1>圖表分析</h1>
+	        <div class="col-md-6">
+	        	<div class="col-md-10 col-md-offset-1">
+	            	<canvas id="myChart1" width="400" height="400"></canvas>
+	            </div>	
+	        </div>
+	        <div class="col-md-6">
+	        	<div class="col-md-10 col-md-offset-1">
+	            	<canvas id="myChart2" width="400" height="400"></canvas>
+	            </div>	
+	        </div>
+		</div>
+
+		<!-- drwa chart -->
+		<script src="js/client_chart.js"></script>
+
+		<hr>
+	</div>
+	<!-- 圖表分析結束 -->
 
 	<!-- 帳戶管理 -->
 	<div class="container">

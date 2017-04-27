@@ -105,6 +105,22 @@ a.navbar-brand{
 	box-shadow: rgba(0,0,0,0.8) 0 8px 33px 0;
 }
 
+/*圖表分析*/
+#div_chart{
+	background-color: rgba(255, 255, 255, 0.4);
+	box-shadow: rgba(0,0,0,0.8) 3px 3px 10px 0;
+}
+#div_chart h1{
+	margin-left: 10px;
+	margin-top: 5px; 
+	
+}
+canvas {
+  width: 100%;
+  height: auto;
+  margin: 5px;
+}
+
 /*帳戶管理*/
 #div_account{
 	background-color: rgba(255, 255, 255, 0.4);
