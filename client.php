@@ -365,6 +365,11 @@
 	            </div>	
 	        </div>
 		</div>
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<canvas id="myChart3" width="400" height="400"></canvas>
+			</div>
+		</div>
 
 		<!-- drwa chart -->
 		<script src="js/client_chart.js"></script>

@@ -23,4 +23,8 @@
 	$(function() {
 	    myChart2(<?php echo json_encode($label_array); ?>,<?php echo json_encode($value_array); ?>);
 	});
+
+	$(function() {
+	    myChart3();
+	});
 </script>
