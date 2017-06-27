@@ -1,7 +1,7 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
 
 body{
-	background:url(../images/bg2.jpg) no-repeat center top;
+	background:url(../shopping_example/images/bg_shopping.jpg) no-repeat center top;
 	background-size: cover;
 	background-attachment: fixed;
 	
@@ -29,7 +29,7 @@ a{
 
 /* Navbar */
 .navbar-inverse{
-	background-color: #fe7b89;
+	background-color: #3c7cff;
 	/*opacity:0.9;*/
 	border:0;
 	border-radius:0;
@@ -44,7 +44,7 @@ a.navbar-brand{
 .navbar-inverse .navbar-nav>.active>a, 
 .navbar-inverse .navbar-nav>.active>a:hover, 
 .navbar-inverse .navbar-nav>.active>a:focus{
-	background-color: #fe485c;
+	background-color: #236aff;
 	opacity:0.9;
 }
 
@@ -52,7 +52,7 @@ a.navbar-brand{
 .navbar-inverse .navbar-toggle:hover, 
 .navbar-inverse .navbar-toggle:focus{
 	border-color: #fff;
-	background-color: #fe485c;
+	background-color: #236aff;
 }
 
 .navbar-inverse .navbar-collapse{
@@ -66,13 +66,13 @@ a.navbar-brand{
 .navbar-inverse .navbar-nav>.open>a, 
 .navbar-inverse .navbar-nav>.open>a:hover, 
 .navbar-inverse .navbar-nav>.open>a:focus{
-	color: #fe7b89;
+	color: #3c7cff;
 	background-color: white;
 }
 
 .navbar-inverse .navbar-nav>li>a:hover{
 	color: white;
-	background-color: #fe94a0;
+	background-color: #6f9eff;
 }
 
 /* Navbar Login */
@@ -95,32 +95,14 @@ a.navbar-brand{
 }
 
 #sign{
-	background-color: #fe7b89;
-	border-color: #fe6878;
+	background-color: #3c7cff;
+	border-color: #236aff;
 }
 
 /*會員資料*/
 #member{
 	background-color: rgba(255, 255, 255, 0.7);
 	box-shadow: rgba(0,0,0,0.8) 0 8px 33px 0;
-}
-
-/*圖表分析*/
-#div_chart{
-	background-color: rgba(255, 255, 255, 0.4);
-	box-shadow: rgba(0,0,0,0.8) 3px 3px 10px 0;
-}
-#div_chart h1{
-	margin-left: 10px;
-	margin-top: 5px; 
-	
-}
-canvas {
-  width: 100%;
-  height: auto;
-  margin-bottom: 10px;
-  padding: 5px;
-  background-color: white;
 }
 
 /*帳戶管理*/
