@@ -440,16 +440,16 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="number" class="col-sm-3 control-label">欲換點數:</label>
-						<div class="col-sm-9">
-					    	<input type="number" id="amount" placeholder="輸入點數" class="form-control" onkeyup="calculate()" required="">
-						</div>
-					</div>
-					<div class="form-group">
 						<label for="bank" class="col-sm-3 control-label">轉入帳戶:</label>
 						<div class="col-sm-9">
 							<select id="to_bank" class="form-control">
 							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="number" class="col-sm-3 control-label">欲換點數:</label>
+						<div class="col-sm-9">
+					    	<input type="number" id="amount" placeholder="輸入點數" class="form-control" onkeyup="calculate()" required="">
 						</div>
 					</div>
 					<div class="form-group">

@@ -119,10 +119,12 @@
 	<div id="bonus" class="container">
 		<div id="main" class="row">
 			<!-- 左半部 -->
-			<div id="main-left" class="col-sm-6">
-			  <h3><b>*我的紅利</b></h3>
-			  <!-- <form> -->
-			  <form action="php/account/login.php" method="POST" role="form">
+			<div id="main-left" class="col-sm-6" style="text-align:text-center">
+			  <!-- <h3><b>*我的紅利</b></h3> -->
+			  <h3><b>*以太幣價格</b></h3>
+			  <iframe id='widget-ticker-preview' src='//www.coingecko.com/zh-tw/%E5%B7%A5%E5%85%B7%E7%B5%84%E4%BB%B6/%E6%94%B6%E5%A0%B1%E6%A9%9F/%E4%BB%A5%E5%A4%AA%E5%9D%8A/twd?id=%E4%BB%A5%E5%A4%AA%E5%9D%8A' style='border:none; height:125px; width: 275px;' scrolling='no' frameborder='0' allowTransparency='true'></iframe>
+
+<!-- 			  <form action="php/account/login.php" method="POST" role="form">
 				<div class="form-group">
 				  <label for="username">帳號:</label>
 				  <div class="input-group">
@@ -138,11 +140,9 @@
 				<div class="checkbox">
 				  <label><input type="checkbox"> 記住我 </label>
 				</div>
-				<!-- <button type="submit" class="btn btn-warning" onclick='searchAccount(this,event)'>登入後查看紅利</button> -->
 				<input type="button" class="btn btn-warning" value="登入後查看紅利" onclick="location.href='./client.php'">
-				<!-- <input name="submit" type="submit" value=" Login "> -->
 			  </form>
-			  <div id="searchResult"></div>
+			  <div id="searchResult"></div> -->
 			</div>
 			<!-- 右半部 -->
 			<div class="col-sm-6"  id="listBonusRate">
